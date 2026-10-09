@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Great Minds - Scientist Quotes</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:monospace}
+body{background:#050a14;color:#fff;min-height:100vh;padding:20px}
+h1{text-align:center;color:#00ff88;font-size:28px;letter-spacing:2px;text-shadow:0 0 15px #00ff88;margin-top:10px}
+.sub{text-align:center;color:#888;font-size:10px;margin:8px 0 20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;max-width:1100px;margin:0 auto;padding-bottom:80px}
+.card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:16px;padding:16px;backdrop-filter:blur(10px);transition:0.3s;cursor:pointer}
+.card:hover{transform:translateY(-4px);border-color:#00ff88;box-shadow:0 8px 25px rgba(0,255,136,0.2)}
+.top{display:flex;gap:12px;align-items:center}
+.avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#00ff88,#00d4ff);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:bold;color:#000}
+.name{font-size:16px;color:#fff;font-weight:bold}
+.field{font-size:9px;color:#00d4ff;margin-top:2px}
+.dates{font-size:9px;color:#aaa;margin-top:3px}
+.quote{margin:12px 0;padding:12px;background:rgba(0,0,0,0.4);border-left:3px solid #ff5fa8;border-radius:8px;font-style:italic;font-size:12px;color:#ffcae0;line-height:1.4}
+.bio{font-size:10px;color:#bbb;line-height:1.5;margin-top:8px;display:none}
+.card.open .bio{display:block}
+.btn{margin-top:10px;padding:6px 12px;border-radius:20px;border:1px solid #00ff8866;background:rgba(0,255,136,0.15);color:#00ff88;font-size:9px;cursor:pointer}
+.back{position:fixed;bottom:15px;left:50%;transform:translateX(-50%);color:#00d4ff;font-size:11px;text-decoration:none;border:1px solid #00d4ff88;padding:8px 20px;border-radius:20px;background:rgba(0,0,0,0.7);backdrop-filter:blur(10px);z-index:10}
+</style>
+</head>
+<body>
+<h1>🧠 GREAT MINDS 🧬</h1>
+<p class="sub">by Airius The Creator • Famous Scientists • Quotes • Life Story • Click card to see bio</p>
+
+<div class="grid" id="grid"></div>
+
+<a class="back" href="https://airius-the-creator.github.io/airius-the-creator/">← Back to Main</a>
+
+<script>
+const scientists = [
+{
+initial:"AE",
+name:"Albert Einstein",
+field:"Theoretical Physics • Relativity",
+born:"March 14, 1879 - Ulm, Germany",
+died:"April 18, 1955 (Age 76) - Princeton, USA",
+quote:"\"Imagination is more important than knowledge. Knowledge is limited. Imagination encircles the world.\"",
+bio:"German-born physicist. Developed theory of relativity, E=mc². Nobel Prize 1921. Born to Jewish family, struggled in school, became patent clerk. Said God doesn't play dice. Escaped Nazis to USA. Pacifist but warned about atomic bomb. Played violin, messy hair icon. Died of aneurysm, brain was preserved for study."
+},
+{
+initial:"IN",
+name:"Isaac Newton",
+field:"Physics • Mathematics • Gravity",
+born:"January 4, 1643 - Woolsthorpe, England",
+died:"March 31, 1727 (Age 84) - London, England",
+quote:"\"If I have seen further it is by standing on the shoulders of Giants.\"",
+bio:"English mathematician. Discovered gravity when apple fell, 3 laws of motion, calculus. Born premature, tiny baby not expected to live. Very introverted, never married. Built first reflecting telescope. Was Master of the Mint, caught counterfeiters. Spent years on alchemy and Bible codes. Buried in Westminster Abbey."
+},
+{
+initial:"MC",
+name:"Marie Curie",
+field:"Physics • Chemistry • Radioactivity",
+born:"November 7, 1867 - Warsaw, Poland",
+died:"July 4, 1934 (Age 66) - France (Radiation)",
+quote:"\"Nothing in life is to be feared, it is only to be understood. Now is the time to understand more, so that we may fear less.\"",
+bio:"Polish-French scientist. Only person to win Nobel in 2 different sciences (Physics & Chemistry). Discovered elements polonium (named after Poland) and radium. First female professor in Paris. Husband Pierre died in accident. Carried test tubes of radium in pockets, died from radiation exposure. Daughter also won Nobel. Lab notebooks still radioactive today."
+},
+{
+initial:"NT",
+name:"Nikola Tesla",
+field:"Electrical Engineering • AC Current",
+born:"July 10, 1856 - Smiljan, Croatia",
+died:"January 7, 1943 (Age 86) - New York, USA",
+quote:"\"The present is theirs; the future, for which I really worked, is mine.\"",
+bio:"Serbian-American inventor. Invented AC electricity, radio, remote control, Tesla coil. Born during lightning storm. Worked for Edison then rival. Very eccentric, claimed to talk to pigeons, never married. Died alone broke in hotel. Elon Musk named Tesla car after him. Had 300+ patents, predicted smartphones and internet in 1901."
+},
+{
+initial:"SH",
+name:"Stephen Hawking",
+field:"Cosmology • Black Holes",
+born:"January 8, 1942 - Oxford, England",
+died:"March 14, 2018 (Age 76) - Cambridge, England",
+quote:"\"Intelligence is the ability to adapt to change.\"",
+bio:"British cosmologist. At 21 diagnosed with ALS, told 2 years to live but lived 55 more years. Wheelchair, computer voice. Proved black holes emit radiation (Hawking radiation). Wrote A Brief History of Time. Appeared in Simpsons, Big Bang Theory. Zero gravity flight, wanted to go to space. 3 kids, divorced twice, kept working till death."
+},
+{
+initial:"CN",
+name:"Charles Darwin",
+field:"Biology • Evolution",
+born:"February 12, 1809 - Shrewsbury, England",
+died:"April 19, 1882 (Age 73) - Kent, England",
+quote:"\"It is not the strongest of the species that survives, nor the most intelligent, but the one most responsive to change.\"",
+bio:"English naturalist. Voyage on HMS Beagle 5 years around world, collected finches in Galapagos. Theory of evolution by natural selection - Origin of Species 1859. Initially studied to be doctor and priest. Very sick most of life, anxious. Married cousin Emma, 10 kids. Waited 20 years to publish theory because scared of church. Changed how we understand life."
+},
+{
+initial:"AS",
+name:"Ada Lovelace",
+field:"Mathematics • First Computer Programmer",
+born:"December 10, 1815 - London, England",
+died:"November 27, 1852 (Age 36) - London, England",
+quote:"\"The Analytical Engine has no pretensions whatever to originate anything. It can do whatever we know how to order it to perform.\"",
+bio:"English mathematician. Daughter of poet Lord Byron. Worked with Charles Babbage on Analytical Engine (early computer). Wrote first algorithm - first programmer in history. Predicted computers could make music and art, not just math. Mother forced her to study math to not become poet like father. Died young from cancer. Programming language Ada named after her."
+},
+{
+initial:"GN",
+name:"Galileo Galilei",
+field:"Astronomy • Physics",
+born:"February 15, 1564 - Pisa, Italy",
+died:"January 8, 1642 (Age 77) - Arcetri, Italy",
+quote:"\"And yet it moves. - E pur si muove.\"",
+bio:"Italian astronomer. Made telescope, discovered moons of Jupiter, rings of Saturn, sunspots. Said Earth moves around Sun - church put him on trial, house arrest for life. Father wanted him to be doctor. Also discovered inertia. Blind at end. NASA named spacecraft Galileo after him. Said Bible tells how to go to heaven, not how heavens go."
+}
+];
+
+const grid = document.getElementById('grid');
+scientists.forEach(s=>{
+const card = document.createElement('div');
+card.className='card';
+card.innerHTML=`
+<div class="top">
+<div class="avatar">${s.initial}</div>
+<div>
+<div class="name">${s.name}</div>
+<div class="field">${s.field}</div>
+<div class="dates">Born: ${s.born}<br>Died: ${s.died}</div>
+</div>
+</div>
+<div class="quote">${s.quote}</div>
+<div class="bio"><b>Life Story:</b><br>${s.bio}<br><br><button class="btn" onclick="event.stopPropagation();this.parentElement.parentElement.classList.remove('open')">Close</button></div>
+`;
+card.onclick=()=>card.classList.toggle('open');
+grid.appendChild(card);
+});
+</script>
+</body>
+</html>
